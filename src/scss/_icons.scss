@@ -1,0 +1,10 @@
+@each $key, $value in $prefix-icons {
+    .#{$prefix-css-prefix}-#{$key}::before {
+        content: char($value);
+    }
+}
+
+.#{$prefix-css-prefix}-blank::before {
+    content: "\F68C";
+    visibility: hidden;
+}
