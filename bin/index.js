@@ -2,6 +2,8 @@
 
 const yargs = require('yargs');
 const webfont = require("webfont").default;
+const sass = require('node-sass');
+const uglifycss = require('uglifycss');
 const fs = require('fs');
 const path = require('path');
 
@@ -97,17 +99,17 @@ if (errors.length) {
   console.error('etc...');
 }
 
-if (!fs.existsSync(distFolder)) {
-  fs.mkdirSync(distFolder, { recursive: true });
-}
-if (!fs.existsSync(path.join(distFolder, 'scss'))) {
-  fs.mkdirSync(path.join(distFolder, 'scss'));
-}
-if (!fs.existsSync(path.join(distFolder, 'css'))) {
-  fs.mkdirSync(path.join(distFolder, 'css'));
-}
-if (!fs.existsSync(path.join(distFolder, 'css', 'fonts'))) {
-  fs.mkdirSync(path.join(distFolder, 'css', 'fonts'));
+function generateFolders() {
+  if (!fs.existsSync(distFolder)) {
+    fs.mkdirSync(distFolder, { recursive: true });
+  }
+  const folders = ['scss', 'css', 'fonts'];
+  folders.forEach(folder => {
+    if (!fs.existsSync(path.join(distFolder, folder))) {
+      fs.mkdirSync(path.join(distFolder, folder));
+    }
+  });
+  console.log('- Folders created.');
 }
 
 function generateIndex() {
@@ -158,6 +160,19 @@ function generateSCSS() {
 
 function generateCSS() {
   const { fileName } = fontBuildJson;
+  sass.render({
+    file: path.resolve(distFolder, 'scss', `${fileName}.scss`),
+    sourceMap: true,
+    outFile: `${fileName}.css`
+  }, function(err, result) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(result);
+      fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.css`), result.css);
+      fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.css.map`), result.map);
+    }
+  });
   console.log(`- Generated ${fileName}.css`);
 }
 
@@ -168,10 +183,11 @@ webfont({
   fontHeight: 512
 })
 .then(result => {
-  fs.writeFileSync(path.join(distFolder, 'css', 'fonts', 'result.ttf'), result.ttf);
-  fs.writeFileSync(path.join(distFolder, 'css', 'fonts', 'result.eot'), result.eot);
-  fs.writeFileSync(path.join(distFolder, 'css', 'fonts', 'result.woff'), result.woff);
-  fs.writeFileSync(path.join(distFolder, 'css', 'fonts', 'result.woff2'), result.woff2);
+  generateFolders();
+  fs.writeFileSync(path.join(distFolder, 'fonts', 'result.ttf'), result.ttf);
+  fs.writeFileSync(path.join(distFolder, 'fonts', 'result.eot'), result.eot);
+  fs.writeFileSync(path.join(distFolder, 'fonts', 'result.woff'), result.woff);
+  fs.writeFileSync(path.join(distFolder, 'fonts', 'result.woff2'), result.woff2);
   console.log('- Generated ttf, eot, woff, and woff2');
   generateIndex();
   generateSCSS();
