@@ -112,6 +112,39 @@ function generateFolders() {
 }
 
 function generateIndex() {
+  const {
+    prefix,
+    name,
+    fileName,
+    fontName,
+    fontFamily,
+    fontWeight,
+    version,
+    npmFont,
+    npmJS,
+    npmSVG,
+    website
+  } = fontBuildJson;
+  const htmlSrc = path.resolve(__dirname, '..', 'src', 'index.html');
+  const htmlDist = path.resolve(distFolder, 'index.html');
+  const icons = [];
+  metaJson.forEach(icon => {
+    icons.push(`{name:"${icon.name}",hex:"${icon.codepoint}"}`);
+  });
+  const htmlString = fs.readFileSync(htmlSrc, 'utf8')
+    .replace(/prefix/g, prefix)
+    .replace(/name/g, name)
+    .replace(/fileName/g, fileName)
+    .replace(/fontName/g, fontName)
+    .replace(/fontFamily/g, fontFamily)
+    .replace(/fontWeight/g, fontWeight)
+    .replace(/-.-.-/g, `${version.major}.${version.minor}.${version.patch}`)
+    .replace(/npmFont/g, npmFont)
+    .replace(/npmJS/g, npmJS)
+    .replace(/npmSVG/g, npmSVG)
+    .replace(/domain\.com/g, website)
+    .replace(/icons = \[\]/, `icons = [${icons.join(',')}]`);
+  fs.writeFileSync(htmlDist, htmlString);
   console.log('- Generated index.html');
 }
 
@@ -129,8 +162,9 @@ function generateSCSS() {
   const main = path.resolve(__dirname, '..', 'src', 'scss', 'main.scss');
   const mainDist = path.resolve(distFolder, 'scss', `${fileName}.scss`);
   const mainString = fs.readFileSync(main, 'utf8')
-    .replace('domain.com', website);
+    .replace(/domain\.com/, website);
   fs.writeFileSync(mainDist, mainString);
+  console.log(`- Generated ${fileName}.scss`);
   // Others
   const others = [
     'animated',
@@ -144,7 +178,7 @@ function generateSCSS() {
   others.forEach(file => {
     const other = path.resolve(__dirname, '..', 'src', 'scss', `_${file}.scss`);
     const otherDist = path.resolve(distFolder, 'scss', `_${file}.scss`);
-    const otherString = fs.readFileSync(other, 'utf8')
+    let otherString = fs.readFileSync(other, 'utf8')
       .replace(/prefix/g, prefix)
       .replace(/fileName/g, fileName)
       .replace(/fontName/g, fontName)
@@ -152,9 +186,16 @@ function generateSCSS() {
       .replace(/fontWeight/g, fontWeight)
       .replace(/-.-.-/g, `${version.major}.${version.minor}.${version.patch}`)
       .replace(new RegExp(`${prefix}-css-${prefix}`, 'g'), `${prefix}-css-prefix`);
+    if (file === 'variables') {
+      const icons = [];
+      metaJson.forEach(icon => {
+        icons.push(`  "${icon.name}": ${icon.codepoint}`);
+      });
+      otherString = otherString.replace(/icons: \(\)/, `icons: (\n${icons.join(',\n')}\n)`);
+    }
     fs.writeFileSync(otherDist, otherString);
+    console.log(`  - Generated _${file}.scss`);
   });
-  console.log(`- Generated ${fileName}.scss`);
 }
 
 function generateCSS() {

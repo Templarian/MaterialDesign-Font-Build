@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="google" content="notranslate">
-    <title>{{package_name}}</title>
+    <title>packageName</title>
     <style>
         * {
             margin: 0;
@@ -101,13 +101,13 @@
             border: 1px solid #DDD;
         }
 
-        p i.{{package_prefix}} {
+        p i.prefix {
             vertical-align: middle;
             border-radius: 4px;
             display: inline-block;
         }
 
-        p i.{{package_prefix}}.dark-demo {
+        p i.prefix.dark-demo {
             background: #333;
         }
 
@@ -175,7 +175,7 @@
             line-height: 24px;
         }
 
-        .icons .{{package_prefix}}:before {
+        .icons .prefix:before {
             font-size: 24px;
         }
 
@@ -214,25 +214,25 @@
             text-decoration: none;
         }
     </style>
-    <link href="css/{{package_filename}}.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="css/fileName.min.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <h1>
         <svg>
             <path d="M0,0H8V3H18V0H26V8H23V18H26V26H18V23H8V21H18V18H21V8H18V5H8V8H5V18H8V26H0V18H3V8H0V0M2,2V6H6V2H2M2,20V24H6V20H2M20,2V6H24V2H20M20,20V24H24V20H20Z"></path>
         </svg>
-        {{package_name}}
+        packageName
         <span class="version">-.-.-</span>
         <code id="npm" title="Copy to Clipboard">
             <svg viewBox="0 0 24 24">
                 <path d="M19,20H5V4H7V7H17V4H19M12,2A1,1 0 0,1 13,3A1,1 0 0,1 12,4A1,1 0 0,1 11,3A1,1 0 0,1 12,2M19,2H14.82C14.4,0.84 13.3,0 12,0C10.7,0 9.6,0.84 9.18,2H5A2,2 0 0,0 3,4V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V4A2,2 0 0,0 19,2Z" />
             </svg>
-            npm install {{package_npm_font}}
+            npm install npmFont
         </code>
     </h1>
 
     <h2>Usage</h2>
-    <pre><code>&lt;span class=&quot;{{package_prefix}} {{package_prefix}}-<span id="name">name</span>&quot;&gt;&lt;/span&gt;</code></pre>
+    <pre><code>&lt;span class=&quot;prefix prefix-<span id="name">name</span>&quot;&gt;&lt;/span&gt;</code></pre>
 
     <h2>Icons <small>(click to copy to clipboard)</small></h2>
     <div class="icons" id="icons"></div>
@@ -244,53 +244,53 @@
     <h3>Size</h3>
 
     <p>
-        <code>{{package_prefix}}-18px</code> <i class="{{package_prefix}} {{package_prefix}}-18px {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-24px</code> <i class="{{package_prefix}} {{package_prefix}}-24px {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-36px</code> <i class="{{package_prefix}} {{package_prefix}}-36px {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-48px</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-account"></i>
+        <code>prefix-18px</code> <i class="prefix prefix-18px prefix-account"></i>
+        <code>prefix-24px</code> <i class="prefix prefix-24px prefix-account"></i>
+        <code>prefix-36px</code> <i class="prefix prefix-36px prefix-account"></i>
+        <code>prefix-48px</code> <i class="prefix prefix-48px prefix-account"></i>
     </p>
 
     <h3>Rotate</h3>
 
     <p>
-        <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-rotate-45</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-rotate-45 {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-rotate-90</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-rotate-90 {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-rotate-135</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-rotate-135 {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-rotate-180</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-rotate-180 {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-rotate-225</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-rotate-225 {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-rotate-270</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-rotate-270 {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-rotate-315</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-rotate-315 {{package_prefix}}-account"></i>
+        <i class="prefix prefix-48px prefix-account"></i>
+        <code>prefix-rotate-45</code> <i class="prefix prefix-48px prefix-rotate-45 prefix-account"></i>
+        <code>prefix-rotate-90</code> <i class="prefix prefix-48px prefix-rotate-90 prefix-account"></i>
+        <code>prefix-rotate-135</code> <i class="prefix prefix-48px prefix-rotate-135 prefix-account"></i>
+        <code>prefix-rotate-180</code> <i class="prefix prefix-48px prefix-rotate-180 prefix-account"></i>
+        <code>prefix-rotate-225</code> <i class="prefix prefix-48px prefix-rotate-225 prefix-account"></i>
+        <code>prefix-rotate-270</code> <i class="prefix prefix-48px prefix-rotate-270 prefix-account"></i>
+        <code>prefix-rotate-315</code> <i class="prefix prefix-48px prefix-rotate-315 prefix-account"></i>
     </p>
 
     <h3>Flip</h3>
 
     <p>
-        <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-account-alert"></i>
-        <code>{{package_prefix}}-flip-h</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-flip-h {{package_prefix}}-account-alert"></i>
-        <code>{{package_prefix}}-flip-v</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-flip-v {{package_prefix}}-account-alert"></i>
+        <i class="prefix prefix-48px prefix-account-alert"></i>
+        <code>prefix-flip-h</code> <i class="prefix prefix-48px prefix-flip-h prefix-account-alert"></i>
+        <code>prefix-flip-v</code> <i class="prefix prefix-48px prefix-flip-v prefix-account-alert"></i>
     </p>
 
-    <p class="note"><strong>Note:</strong> We do not include the ability to use <code>{{package_prefix}}-flip-*</code> and <code>{{package_prefix}}-rotate-*</code> at the same time.</p>
+    <p class="note"><strong>Note:</strong> We do not include the ability to use <code>prefix-flip-*</code> and <code>prefix-rotate-*</code> at the same time.</p>
 
     <h3>Spin</h3>
 
     <p>
-        <code>{{package_prefix}}-spin</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-spin {{package_prefix}}-loading"></i>
-        <code>{{package_prefix}}-spin</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-spin {{package_prefix}}-star"></i>
+        <code>prefix-spin</code> <i class="prefix prefix-48px prefix-spin prefix-loading"></i>
+        <code>prefix-spin</code> <i class="prefix prefix-48px prefix-spin prefix-star"></i>
     </p>
 
     <h3>Color</h3>
 
     <p style="padding-bottom:20px;">
-        <code>{{package_prefix}}-light</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-light {{package_prefix}}-account dark-demo"></i>
-        <code>{{package_prefix}}-light {{package_prefix}}-inactive</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-light {{package_prefix}}-inactive {{package_prefix}}-account dark-demo"></i>
-        <code>{{package_prefix}}-dark</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-dark {{package_prefix}}-account"></i>
-        <code>{{package_prefix}}-dark {{package_prefix}}-inactive</code> <i class="{{package_prefix}} {{package_prefix}}-48px {{package_prefix}}-dark {{package_prefix}}-inactive {{package_prefix}}-account"></i>
+        <code>prefix-light</code> <i class="prefix prefix-48px prefix-light prefix-account dark-demo"></i>
+        <code>prefix-light prefix-inactive</code> <i class="prefix prefix-48px prefix-light prefix-inactive prefix-account dark-demo"></i>
+        <code>prefix-dark</code> <i class="prefix prefix-48px prefix-dark prefix-account"></i>
+        <code>prefix-dark prefix-inactive</code> <i class="prefix prefix-48px prefix-dark prefix-inactive prefix-account"></i>
     </p>
 
     <footer>
-        Generated with <a href="https://github.com/sapegin/grunt-webfont">grunt-webfont</a> at <a href="http://materialdesignicons.com/">MaterialDesignIcons.com</a>.
+        Generated with <a href="https://npmjs.com/package/@mdi/font-build">@mdi/font-build</a> by <a href="http://domain.com/">domain.com</a>.
         <a href="https://www.npmjs.com/org/mdi" target="_blank">NPM @mdi Organization</a>.
     </footer>
 
@@ -317,13 +317,13 @@
             for (var j = 0; j < icons.length; j++) {
                 var div = document.createElement('div'),
                     i = document.createElement('i');
-                i.className = '{{package_prefix}} {{package_prefix}}-' + icons[j].name;
+                i.className = 'prefix prefix-' + icons[j].name;
                 div.appendChild(i);
                 var code = document.createElement('code');
                 code.appendChild(document.createTextNode(icons[j].hex));
                 div.appendChild(code);
                 var span = document.createElement('span');
-                span.appendChild(document.createTextNode('{{package_prefix}}-' + icons[j].name));
+                span.appendChild(document.createTextNode('prefix-' + icons[j].name));
                 div.appendChild(span);
                 span.onclick = (function (icon) {
                     return function () {
@@ -342,7 +342,7 @@
                 })(icons[j]);
                 span.onmouseup = (function (icon) {
                     return function () {
-                        copyText('{{package_prefix}}-' + icon.name);
+                        copyText('prefix-' + icon.name);
                     };
                 })(icons[j]);
                 document.getElementById('icons').appendChild(div);
