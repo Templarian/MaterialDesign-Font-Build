@@ -133,7 +133,7 @@ function generateIndex() {
   });
   const htmlString = fs.readFileSync(htmlSrc, 'utf8')
     .replace(/prefix/g, prefix)
-    .replace(/name/g, name)
+    .replace(/packageName/g, name)
     .replace(/fileName/g, fileName)
     .replace(/fontName/g, fontName)
     .replace(/fontFamily/g, fontFamily)
