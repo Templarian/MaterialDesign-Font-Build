@@ -3,7 +3,6 @@
 const yargs = require('yargs');
 const webfont = require("webfont").default;
 const sass = require('node-sass');
-const uglifycss = require('uglifycss');
 const fs = require('fs');
 const path = require('path');
 
@@ -168,12 +167,24 @@ function generateCSS() {
     if (err) {
       console.error(err);
     } else {
-      console.log(result);
       fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.css`), result.css);
       fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.css.map`), result.map);
     }
   });
-  console.log(`- Generated ${fileName}.css`);
+  sass.render({
+    file: path.resolve(distFolder, 'scss', `${fileName}.scss`),
+    outputStyle: 'compressed',
+    sourceMap: true,
+    outFile: `${fileName}.css`
+  }, function(err, result) {
+    if (err) {
+      console.error(err);
+    } else {
+      fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.min.css`), result.css);
+      fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.min.css.map`), result.map);
+    }
+  });
+  console.log(`- Generated ${fileName}.css / *.min.css / *.map`);
 }
 
 webfont({
