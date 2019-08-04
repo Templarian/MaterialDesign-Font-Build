@@ -62,3 +62,7 @@ dist/
 ```
 
 Please let us know if you need any features beyond the current CLI options.
+
+## The `webfont` Package is Amazing!
+
+99% of this is thanks to the https://www.npmjs.com/package/webfont package. They really have done amazing work.

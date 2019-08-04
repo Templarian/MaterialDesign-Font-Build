@@ -1,7 +1,7 @@
 {
   "name": "@mdi/font-build",
   "version": "1.0.0",
-  "description": "",
+  "description": "Material Design Icons webfont builder.",
   "main": "index.js",
   "scripts": {
     "build": "node bin/index.js"
@@ -9,7 +9,7 @@
   "bin": {
     "font-build": "./bin/index.js"
   },
-  "author": "",
+  "author": "Austin Andrews (@Templarian)",
   "license": "MIT",
   "devDependencies": {
     "node-sass": "^4.12.0",
