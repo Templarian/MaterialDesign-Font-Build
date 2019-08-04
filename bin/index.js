@@ -235,11 +235,12 @@ webfont({
   fontHeight: 512
 })
 .then(result => {
+  const { fileName } = fontBuildJson;
   generateFolders();
-  fs.writeFileSync(path.join(distFolder, 'fonts', 'result.ttf'), result.ttf);
-  fs.writeFileSync(path.join(distFolder, 'fonts', 'result.eot'), result.eot);
-  fs.writeFileSync(path.join(distFolder, 'fonts', 'result.woff'), result.woff);
-  fs.writeFileSync(path.join(distFolder, 'fonts', 'result.woff2'), result.woff2);
+  fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.ttf`), result.ttf);
+  fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.eot`), result.eot);
+  fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.woff`), result.woff);
+  fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.woff2`), result.woff2);
   console.log('- Generated ttf, eot, woff, and woff2');
   generateIndex();
   generateSCSS();
