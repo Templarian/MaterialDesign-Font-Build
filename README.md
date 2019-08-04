@@ -11,7 +11,7 @@ By installing `@mdi/font-build` globally one can generate their own webfont buil
 ```bash
 # Install Globally
 npm install -g @mdi/font-build
-# Run in folder
+# Reads config from font-build.json
 font-build
 ```
 
