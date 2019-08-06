@@ -57,14 +57,17 @@ if (argv.svg !== './svg') {
 
 if (!fs.existsSync(fontBuildFile)) {
   console.error(`Unable to find "${fontBuildFile}". Use --help to learn more.`);
+  process.exit(1);
 }
 
 if (!fs.existsSync(metaFile)) {
   console.error(`Unable to find "${metaFile}". Use --help to learn more.`);
+  process.exit(1);
 }
 
 if (!fs.existsSync(svgFolder)) {
   console.error(`Unable to find "${svgFolder}" folder. Use --help to learn more.`);
+  process.exit(1);
 }
 
 const fontBuildString = fs.readFileSync(fontBuildFile);
@@ -96,6 +99,7 @@ if (errors.length) {
     console.error(error);
   });
   console.error('etc...');
+  process.exit(1);
 }
 
 function generateFolders() {
