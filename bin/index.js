@@ -202,6 +202,7 @@ function generateCSS() {
   const { fileName } = fontBuildJson;
   sass.render({
     file: path.resolve(distFolder, 'scss', `${fileName}.scss`),
+    outputStyle: 'expanded',
     sourceMap: true,
     outFile: `${fileName}.css`
   }, function(err, result) {

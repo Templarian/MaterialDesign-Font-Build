@@ -15,6 +15,8 @@ npm install -g @mdi/font-build
 font-build
 ```
 
+> To run without installing use `npx @mdi/font-build`
+
 ### Input
 
 Any version of `@mdi/svg` v3.9.95+ will work with no changes. For earlier versions copy the `font-build.json` and update the `version: { major: 3, minor: 9, patch: 95 }` values.
