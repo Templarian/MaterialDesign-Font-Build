@@ -235,7 +235,7 @@ function generateCSS() {
 
 webfont({
   files: 'svg/*.svg',
-  fontName: "my-font-name",
+  fontName: fontBuildJson.fontName,
   formats: ['ttf', 'eot', 'woff', 'woff2'],
   fontHeight: 512
 })
