@@ -71,7 +71,12 @@ if (!fs.existsSync(svgFolder)) {
 }
 
 const fontBuildString = fs.readFileSync(fontBuildFile);
-const fontBuildJson = JSON.parse(fontBuildString);
+const fontBuildJson = {
+  prefix: 'default',
+  name: 'default name',
+  icon: 'M0,0H8V3H18V0H26V8H23V18H26V26H18V23H8V21H18V18H21V8H18V5H8V8H5V18H8V26H0V18H3V8H0V0M2,2V6H6V2H2M2,20V24H6V20H2M20,2V6H24V2H20M20,20V24H24V20H20Z',
+  ...JSON.parse(fontBuildString)
+};
 const metaString = fs.readFileSync(metaFile);
 const metaJson = JSON.parse(metaString);
 
@@ -119,6 +124,7 @@ function generateIndex() {
   const {
     prefix,
     name,
+    icon,
     fileName,
     fontName,
     fontFamily,
@@ -133,11 +139,13 @@ function generateIndex() {
   const htmlDist = path.resolve(distFolder, 'index.html');
   const icons = [];
   metaJson.forEach(icon => {
-    icons.push(`{name:"${icon.name}",hex:"${icon.codepoint}"}`);
+    const deprecated = icon.deprecated ? ',deprecated:true' : '';
+    icons.push(`{name:"${icon.name}",hex:"${icon.codepoint}",version:"${icon.version}"${deprecated}}`);
   });
   const htmlString = fs.readFileSync(htmlSrc, 'utf8')
     .replace(/prefix/g, prefix)
     .replace(/packageName/g, name)
+    .replace(/packageIcon/g, icon)
     .replace(/fileName/g, fileName)
     .replace(/fontName/g, fontName)
     .replace(/fontFamily/g, fontFamily)

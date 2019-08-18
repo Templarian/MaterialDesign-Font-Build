@@ -17,7 +17,7 @@
             color: #222;
         }
 
-        h1, h2, h3, p, div, footer {
+        h1, h2, h3, p, div, blockquote, footer {
             font-family: "Helvetica Neue", Arial, sans-serif;
         }
 
@@ -80,6 +80,29 @@
         h2 {
             font-size: 18px;
             padding: 20px;
+        }
+
+        h2 small {
+            color: #555;
+            font-size: 0.8rem;
+        }
+
+        h2 small::before {
+            content: '(';
+        }
+
+        h2 small::after {
+            content: ')';
+        }
+
+        h2.header-newicons::before {
+            content: ' ';
+            width: 2.4rem;
+            height: 0.2rem;
+            position: absolute;
+            margin-top: 1.25rem;
+            background: #3c90be;
+            border-radius: 0.1rem;
         }
 
         h3 {
@@ -175,8 +198,30 @@
             line-height: 24px;
         }
 
-        .icons .prefix:before {
+        .icons .prefix::before {
             font-size: 24px;
+        }
+
+        .icons div.new::before {
+            content: ' ';
+            width: 0.2rem;
+            height: 1.75rem;
+            position: absolute;
+            margin-top: 0.25rem;
+            margin-left: -0.25rem;
+            background: #3c90be;
+            border-radius: 0.1rem;
+        }
+
+        .icons div.deprecated::before {
+            content: ' ';
+            width: 0.2rem;
+            height: 1.75rem;
+            position: absolute;
+            margin-top: 0.25rem;
+            margin-left: -0.25rem;
+            background: #be3c3c;
+            border-radius: 0.1rem;
         }
 
         pre {
@@ -185,6 +230,16 @@
             padding: 10px;
             border: 1px solid #DDD;
             background: #F1F1F1;
+        }
+
+        blockquote {
+            margin: 1rem 1rem 0 1rem;
+            border-left: 3px solid #DDD;
+            padding: 0.5rem;
+        }
+
+        blockquote.deprecated {
+            border-left-color: #be3c3c;
         }
 
         div.copied {
@@ -213,13 +268,17 @@
             color: #e91e63;
             text-decoration: none;
         }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
     <link href="css/fileName.min.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <h1>
         <svg>
-            <path d="M0,0H8V3H18V0H26V8H23V18H26V26H18V23H8V21H18V18H21V8H18V5H8V8H5V18H8V26H0V18H3V8H0V0M2,2V6H6V2H2M2,20V24H6V20H2M20,2V6H24V2H20M20,20V24H24V20H20Z"></path>
+            <path d="packageIcon"></path>
         </svg>
         packageName
         <span class="version">-.-.-</span>
@@ -231,13 +290,24 @@
         </code>
     </h1>
 
-    <h2>Usage</h2>
+    <h2 class="header-usage">Usage</h2>
     <pre><code>&lt;span class=&quot;prefix prefix-<span id="name">name</span>&quot;&gt;&lt;/span&gt;</code></pre>
+    
+    <blockquote>
+        Click the icon, hex codepoint, or name below to copy the value to your clipboard.
+    </blockquote>
 
-    <h2>Icons <small>(click to copy to clipboard)</small></h2>
+    <h2 class="header-newicons">New Icons <small id="newIconsCount">-</small></h2>
+    <div class="icons" id="newIcons"></div>
+    
+    <h2 class="header-icons">All Icons <small id="iconsCount">-</small></h2>
     <div class="icons" id="icons"></div>
 
-    <h2>Extras</h2>
+    <blockquote class="deprecated" id="deprecated">
+        Deprecated icons will be removed in a future major release.
+    </blockquote>
+
+    <h2 class="header-extras">Extras</h2>
 
     <p>The helper CSS classes are listed below.</p>
 
@@ -295,58 +365,81 @@
     </footer>
 
     <script type="text/javascript">
+        function isNew(icon) {
+            return icon.version === '-.-.-';
+        }
+        function isDeprecated(icon) {
+            return typeof icon.deprecated == 'undefined'
+                ? false
+                : icon.deprecated;
+        }
+        function copyText(text) {
+            var copyFrom = document.createElement('textarea');
+            copyFrom.setAttribute("style", "position:fixed;opacity:0;top:100px;left:100px;");
+            copyFrom.value = text;
+            document.body.appendChild(copyFrom);
+            copyFrom.select();
+            document.execCommand('copy');
+            var copied = document.createElement('div');
+            copied.setAttribute('class', 'copied');
+            copied.appendChild(document.createTextNode('Copied to Clipboard'));
+            document.body.appendChild(copied);
+            setTimeout(function () {
+                document.body.removeChild(copyFrom);
+                document.body.removeChild(copied);
+            }, 1500);
+        };
+        function getIconItem(icon, isNewIcon, isDeprecatedIcon) {
+            var div = document.createElement('div'),
+                i = document.createElement('i');
+            i.className = 'prefix prefix-' + icon.name;
+            div.appendChild(i);
+            var code = document.createElement('code');
+            code.appendChild(document.createTextNode(icon.hex));
+            div.appendChild(code);
+            var span = document.createElement('span');
+            span.appendChild(document.createTextNode('prefix-' + icon.name));
+            div.appendChild(span);
+            span.onclick = function () {
+                document.getElementById('name').innerHTML = icon.name;
+            };
+            i.onmouseup = function () {
+                copyText(String.fromCharCode(parseInt(icon.hex, 16)));
+            };
+            code.onmouseup = function () {
+                copyText(icon.hex);
+            };
+            span.onmouseup = function () {
+                copyText('prefix-' + icon.name);
+            };
+            if (isNewIcon) {
+                div.className = 'new';
+            }
+            if (isDeprecatedIcon) {
+                div.className = 'deprecated';
+            }
+            return div;
+        }
         (function () {
+            var iconsCount = 0;
+            var newIconsCount = 0;
             var icons = [];
             icons.push({ "name": "blank", "hex": "f68c" });
-            var copyText = function (text) {
-                var copyFrom = document.createElement('textarea');
-                copyFrom.setAttribute("style", "position:fixed;opacity:0;top:100px;left:100px;");
-                copyFrom.value = text;
-                document.body.appendChild(copyFrom);
-                copyFrom.select();
-                document.execCommand('copy');
-                var copied = document.createElement('div');
-                copied.setAttribute('class', 'copied');
-                copied.appendChild(document.createTextNode('Copied to Clipboard'));
-                document.body.appendChild(copied);
-                setTimeout(function () {
-                    document.body.removeChild(copyFrom);
-                    document.body.removeChild(copied);
-                }, 1500);
-            };
-            for (var j = 0; j < icons.length; j++) {
-                var div = document.createElement('div'),
-                    i = document.createElement('i');
-                i.className = 'prefix prefix-' + icons[j].name;
-                div.appendChild(i);
-                var code = document.createElement('code');
-                code.appendChild(document.createTextNode(icons[j].hex));
-                div.appendChild(code);
-                var span = document.createElement('span');
-                span.appendChild(document.createTextNode('prefix-' + icons[j].name));
-                div.appendChild(span);
-                span.onclick = (function (icon) {
-                    return function () {
-                        document.getElementById('name').innerHTML = icon.name;
-                    };
-                })(icons[j]);
-                i.onmouseup = (function (icon) {
-                    return function () {
-                        copyText(String.fromCharCode(parseInt(icon.hex, 16)));
-                    };
-                })(icons[j]);
-                code.onmouseup = (function (icon) {
-                    return function () {
-                        copyText(icon.hex);
-                    };
-                })(icons[j]);
-                span.onmouseup = (function (icon) {
-                    return function () {
-                        copyText('prefix-' + icon.name);
-                    };
-                })(icons[j]);
-                document.getElementById('icons').appendChild(div);
+            icons.forEach(function(icon) {
+                var item = getIconItem(icon, isNew(icon), isDeprecated(icon));
+                document.getElementById('icons').appendChild(item);
+                if (isNew(icon)) {
+                    var newItem = getIconItem(icon, false, false);
+                    document.getElementById('newIcons').appendChild(newItem);
+                    newIconsCount++;
+                }
+                iconsCount++;
+            });
+            if (!(icons.find(function(icon){ return icon.deprecated === true; }))) {
+                document.getElementById('deprecated').style.display = 'none';
             }
+            document.getElementById('iconsCount').innerText = iconsCount;
+            document.getElementById('newIconsCount').innerText = newIconsCount;
             document.getElementById('npm').addEventListener('click', function () {
                 copyText('npm install {{package_npm_font}}');
             });
