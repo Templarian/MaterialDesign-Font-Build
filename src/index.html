@@ -1,5 +1,6 @@
 ﻿<!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="google" content="notranslate">
@@ -17,7 +18,13 @@
             color: #222;
         }
 
-        h1, h2, h3, p, div, blockquote, footer {
+        h1,
+        h2,
+        h3,
+        p,
+        div,
+        blockquote,
+        footer {
             font-family: "Helvetica Neue", Arial, sans-serif;
         }
 
@@ -58,7 +65,7 @@
 
         h1 code {
             font-size: 20px;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             padding: 4px 12px;
             border-radius: 3px;
             float: right;
@@ -95,13 +102,27 @@
             content: ')';
         }
 
-        h2.header-newicons::before {
-            content: ' ';
-            width: 2.4rem;
-            height: 0.2rem;
+        h2 span {
+            position: relative;
+        }
+
+        h2.newicons span::before {
             position: absolute;
-            margin-top: 1.25rem;
-            background: #3c90be;
+            content: ' ';
+            width: 100%;
+            height: 0.2rem;
+            bottom: -0.25rem;
+            background: #3C90BE;
+            border-radius: 0.1rem;
+        }
+
+        h2.deprecatedicons span::before {
+            position: absolute;
+            content: ' ';
+            width: 100%;
+            height: 0.2rem;
+            bottom: -0.25rem;
+            background: #BE3C3C;
             border-radius: 0.1rem;
         }
 
@@ -140,7 +161,15 @@
             padding: 0 20px 5px 20px;
         }
 
-        .icons {
+        p.deprecated {
+            margin: -0.5rem 0 0.25rem 0;
+        }
+
+        p.extras {
+            margin-top: -0.5rem;
+        }
+
+        div.icons {
             padding: 0 20px 10px 20px;
             -webkit-column-count: 5;
             -moz-column-count: 5;
@@ -150,11 +179,11 @@
             column-gap: 20px;
         }
 
-        .icons div {
+        div.icons div {
             line-height: 2em;
         }
 
-        .icons div span {
+        div.icons div span {
             cursor: pointer;
             font-size: 14px;
             text-overflow: ellipsis;
@@ -165,17 +194,17 @@
             white-space: nowrap;
         }
 
-        .icons div code:hover,
-        .icons div span:hover,
-        .icons div i:hover {
+        div.icons div code:hover,
+        div.icons div span:hover,
+        div.icons div i:hover {
             color: #3c90be;
         }
 
-        .icons div code:hover {
+        div.icons div code:hover {
             border-color: #3c90be;
         }
 
-        .icons div code {
+        div.icons div code {
             border: 1px solid #DDD;
             width: 46px;
             margin-left: 2px;
@@ -188,7 +217,7 @@
             cursor: pointer;
         }
 
-        .icons div i {
+        div.icons div i {
             display: inline-block;
             width: 32px;
             height: 24px;
@@ -198,29 +227,29 @@
             line-height: 24px;
         }
 
-        .icons .prefix::before {
+        div.icons .prefix::before {
             font-size: 24px;
         }
 
-        .icons div.new::before {
+        div.icons div.new::before {
             content: ' ';
             width: 0.2rem;
             height: 1.75rem;
             position: absolute;
             margin-top: 0.25rem;
             margin-left: -0.25rem;
-            background: #3c90be;
+            background: #3C90BE;
             border-radius: 0.1rem;
         }
 
-        .icons div.deprecated::before {
+        div.icons div.deprecated::before {
             content: ' ';
             width: 0.2rem;
             height: 1.75rem;
             position: absolute;
             margin-top: 0.25rem;
             margin-left: -0.25rem;
-            background: #be3c3c;
+            background: #BE3C3C;
             border-radius: 0.1rem;
         }
 
@@ -233,13 +262,31 @@
         }
 
         blockquote {
+            position: relative;
             margin: 1rem 1rem 0 1rem;
-            border-left: 3px solid #DDD;
-            padding: 0.5rem;
+            padding: 0.5rem 0.5rem 0.5rem 0.75rem;
         }
 
-        blockquote.deprecated {
-            border-left-color: #be3c3c;
+        blockquote.note::before {
+            content: ' ';
+            width: 0.25rem;
+            height: 100%;
+            background: #DDD;
+            position: absolute;
+            border-radius: 0.25rem;
+            top: 0;
+            left: 0;
+        }
+
+        blockquote.deprecated::before {
+            content: ' ';
+            width: 0.25rem;
+            height: 100%;
+            background: #BE3C3C;
+            position: absolute;
+            border-radius: 0.25rem;
+            top: 0;
+            left: 0;
         }
 
         div.copied {
@@ -257,11 +304,68 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
+        div.examples {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0.5rem 1.25rem;
+        }
+
+        div.examples > div {
+            display: flex;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        div.examples > div > div:first-child {
+            display: flex;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.4);
+            background: #FFF;
+            z-index: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        div.examples > div > div:first-child + div {
+            display: flex;
+            margin-left: -0.25rem;
+            padding: 0.5rem 0.75rem 0.5rem 1rem;
+            background: #222;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+
+        div.examples > div > div:first-child + div > code {
+            color: #FFF;
+            align-self: center;
+        }
+
+        div.examples > div > div.dark:first-child {
+            background: #444;
+        }
+
+        div.examples i {
+            display: flex;
+        }
+
+        div.examples-size > div > div:first-child {
+            min-width: 3rem;
+        }
+
         footer {
+            display: flex;
             padding: 20px;
             color: #666;
             border-top: 1px solid #DDD;
             background: #F1F1F1;
+        }
+
+        footer > div:first-child {
+            flex: 1;
+        }
+
+        footer > div:last-child {
+            text-align: right;
         }
 
         footer a {
@@ -275,6 +379,7 @@
     </style>
     <link href="css/fileName.min.css" media="all" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
     <h1>
         <svg>
@@ -290,78 +395,229 @@
         </code>
     </h1>
 
-    <h2 class="header-usage">Usage</h2>
+    <h2 class="usage">Usage</h2>
     <pre><code>&lt;span class=&quot;prefix prefix-<span id="name">name</span>&quot;&gt;&lt;/span&gt;</code></pre>
-    
-    <blockquote>
+
+    <blockquote class="note">
         Click the icon, hex codepoint, or name below to copy the value to your clipboard.
     </blockquote>
 
-    <h2 class="header-newicons">New Icons <small id="newIconsCount">-</small></h2>
+    <h2 class="newicons"><span>New</span> Icons <small id="newIconsCount">-</small></h2>
     <div class="icons" id="newIcons"></div>
-    
-    <h2 class="header-icons">All Icons <small id="iconsCount">-</small></h2>
+
+    <h2 class="icons">All Icons <small id="iconsCount">-</small></h2>
     <div class="icons" id="icons"></div>
 
-    <blockquote class="deprecated" id="deprecated">
+    <h2 class="deprecatedicons"><span>Deprecated</span> Icons <small id="deprecatedIconsCount">-</small></h2>
+    <p class="deprecated" id="deprecated">
         Deprecated icons will be removed in a future major release.
-    </blockquote>
-
-    <h2 class="header-extras">Extras</h2>
-
-    <p>The helper CSS classes are listed below.</p>
-
-    <h3>Size</h3>
-
-    <p>
-        <code>prefix-18px</code> <i class="prefix prefix-18px prefix-account"></i>
-        <code>prefix-24px</code> <i class="prefix prefix-24px prefix-account"></i>
-        <code>prefix-36px</code> <i class="prefix prefix-36px prefix-account"></i>
-        <code>prefix-48px</code> <i class="prefix prefix-48px prefix-account"></i>
     </p>
+    <div class="icons" id="deprecatedIcons"></div>
+
+    <h2 class="extras">Extras</h2>
+
+    <p class="extras">The helper CSS classes are listed below.</p>
+
+    <section>
+        <h3>Size</h3>
+
+        <div class="examples examples-size">
+            <div>
+                <div>
+                    <i class="prefix prefix-18px prefix-account"></i>
+                </div>
+                <div>
+                    <code>prefix-18px</code>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <i class="prefix prefix-24px prefix-account"></i>
+                </div>
+                <div>
+                    <code>prefix-24px</code>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <i class="prefix prefix-36px prefix-account"></i>
+                </div>
+                <div>
+                    <code>prefix-36px</code>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <i class="prefix prefix-48px prefix-account"></i>
+                </div>
+                <div>
+                    <code>prefix-48px</code>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <h3>Rotate</h3>
 
-    <p>
-        <i class="prefix prefix-48px prefix-account"></i>
-        <code>prefix-rotate-45</code> <i class="prefix prefix-48px prefix-rotate-45 prefix-account"></i>
-        <code>prefix-rotate-90</code> <i class="prefix prefix-48px prefix-rotate-90 prefix-account"></i>
-        <code>prefix-rotate-135</code> <i class="prefix prefix-48px prefix-rotate-135 prefix-account"></i>
-        <code>prefix-rotate-180</code> <i class="prefix prefix-48px prefix-rotate-180 prefix-account"></i>
-        <code>prefix-rotate-225</code> <i class="prefix prefix-48px prefix-rotate-225 prefix-account"></i>
-        <code>prefix-rotate-270</code> <i class="prefix prefix-48px prefix-rotate-270 prefix-account"></i>
-        <code>prefix-rotate-315</code> <i class="prefix prefix-48px prefix-rotate-315 prefix-account"></i>
-    </p>
+    <div class="examples">
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-account"></i>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-rotate-45 prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-rotate-45</code> 
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-rotate-90 prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-rotate-90</code>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-rotate-135 prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-rotate-135</code>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-rotate-180 prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-rotate-180</code>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-rotate-225 prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-rotate-225</code>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-rotate-270 prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-rotate-270</code>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-rotate-315 prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-rotate-315</code> 
+            </div>
+        </div>
+    </div>
 
     <h3>Flip</h3>
 
-    <p>
-        <i class="prefix prefix-48px prefix-account-alert"></i>
-        <code>prefix-flip-h</code> <i class="prefix prefix-48px prefix-flip-h prefix-account-alert"></i>
-        <code>prefix-flip-v</code> <i class="prefix prefix-48px prefix-flip-v prefix-account-alert"></i>
-    </p>
+    <div class="examples">
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-account-alert"></i>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-flip-h prefix-account-alert"></i>
+            </div>
+            <div>
+                <code>prefix-flip-h</code> 
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-flip-v prefix-account-alert"></i>
+            </div>
+            <div>
+                <code>prefix-flip-v</code> 
+            </div>
+        </div>
+    </div>
 
-    <p class="note"><strong>Note:</strong> We do not include the ability to use <code>prefix-flip-*</code> and <code>prefix-rotate-*</code> at the same time.</p>
+    <p class="note"><strong>Note:</strong> We do not include the ability to use <code>prefix-flip-*</code> and
+        <code>prefix-rotate-*</code> at the same time.</p>
 
     <h3>Spin</h3>
 
-    <p>
-        <code>prefix-spin</code> <i class="prefix prefix-48px prefix-spin prefix-loading"></i>
-        <code>prefix-spin</code> <i class="prefix prefix-48px prefix-spin prefix-star"></i>
-    </p>
+    <div class="examples">
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-spin prefix-loading"></i>
+            </div>
+            <div>
+                <code>prefix-spin</code>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-spin prefix-star"></i>
+            </div>
+            <div>
+                <code>prefix-spin</code>
+            </div>
+        </div>
+    </div>
 
     <h3>Color</h3>
 
-    <p style="padding-bottom:20px;">
-        <code>prefix-light</code> <i class="prefix prefix-48px prefix-light prefix-account dark-demo"></i>
-        <code>prefix-light prefix-inactive</code> <i class="prefix prefix-48px prefix-light prefix-inactive prefix-account dark-demo"></i>
-        <code>prefix-dark</code> <i class="prefix prefix-48px prefix-dark prefix-account"></i>
-        <code>prefix-dark prefix-inactive</code> <i class="prefix prefix-48px prefix-dark prefix-inactive prefix-account"></i>
-    </p>
+    <div class="examples">
+        <div>
+            <div class="dark">
+                <i class="prefix prefix-36px prefix-light prefix-account dark-demo"></i>
+            </div>
+            <div>
+                <code>prefix-light</code>
+            </div>
+        </div>
+        <div>
+            <div class="dark">
+                <i class="prefix prefix-36px prefix-light prefix-inactive prefix-account dark-demo"></i>
+            </div>
+            <div>
+                <code>prefix-light prefix-inactive</code>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-dark prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-dark</code>
+            </div>
+        </div>
+        <div>
+            <div>
+                <i class="prefix prefix-36px prefix-dark prefix-inactive prefix-account"></i>
+            </div>
+            <div>
+                <code>prefix-dark prefix-inactive</code> 
+            </div>
+        </div>
+    </div>
 
     <footer>
-        Generated with <a href="https://npmjs.com/package/@mdi/font-build">@mdi/font-build</a> by <a href="http://domain.com/">domain.com</a>.
-        <a href="https://www.npmjs.com/org/mdi" target="_blank">NPM @mdi Organization</a>.
+        <div>
+            Generated with <a href="https://npmjs.com/package/@mdi/font-build">@mdi/font-build</a>
+            by <a href="http://domain.com/">domain.com</a>.
+        </div>
+        <div>
+            <a href="https://www.npmjs.com/org/mdi" target="_blank">NPM @mdi Organization</a>
+        </div>
     </footer>
 
     <script type="text/javascript">
@@ -423,9 +679,10 @@
         (function () {
             var iconsCount = 0;
             var newIconsCount = 0;
+            var deprecatedIconsCount = 0;
             var icons = [];
             icons.push({ "name": "blank", "hex": "f68c" });
-            icons.forEach(function(icon) {
+            icons.forEach(function (icon) {
                 var item = getIconItem(icon, isNew(icon), isDeprecated(icon));
                 document.getElementById('icons').appendChild(item);
                 if (isNew(icon)) {
@@ -433,13 +690,22 @@
                     document.getElementById('newIcons').appendChild(newItem);
                     newIconsCount++;
                 }
+                if (isDeprecated(icon)) {
+                    var deprecatedItem = getIconItem(icon, false, false);
+                    document.getElementById('deprecatedIcons').appendChild(deprecatedItem);
+                    deprecatedIconsCount++;
+                }
                 iconsCount++;
             });
-            if (!(icons.find(function(icon){ return icon.deprecated === true; }))) {
+            var whereDeprecated = function (icon) {
+                return icon.deprecated === true;
+            };
+            if (!(icons.find(whereDeprecated))) {
                 document.getElementById('deprecated').style.display = 'none';
             }
             document.getElementById('iconsCount').innerText = iconsCount;
             document.getElementById('newIconsCount').innerText = newIconsCount;
+            document.getElementById('deprecatedIconsCount').innerText = deprecatedIconsCount;
             document.getElementById('npm').addEventListener('click', function () {
                 copyText('npm install {{package_npm_font}}');
             });
@@ -447,4 +713,5 @@
     </script>
 
 </body>
+
 </html>
