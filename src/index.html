@@ -660,7 +660,7 @@
                 document.getElementById('name').innerHTML = icon.name;
             };
             i.onmouseup = function () {
-                copyText(String.fromCharCode(parseInt(icon.hex, 16)));
+                copyText(String.fromCodePoint(parseInt(icon.hex, 16)));
             };
             code.onmouseup = function () {
                 copyText(icon.hex);
