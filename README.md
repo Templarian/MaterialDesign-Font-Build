@@ -21,6 +21,8 @@ font-build
 
 Any version of `@mdi/svg` v3.9.95+ will work with no changes. For earlier versions copy the `font-build.json` and update the `version: { major: 3, minor: 9, patch: 95 }` values.
 
+Download from [MaterialDesign-SVG](https://github.com/Templarian/MaterialDesign-SVG)
+
 > `font-build --help` explains all the possible overrides.
 
 #### Folder Structure
@@ -63,7 +65,17 @@ dist/
   index.html
 ```
 
-Please let us know if you need any features beyond the current CLI options.
+## Why is the SVG font not generated?
+
+The `.svg` format is very heavy font format not used by modern browsers, but it can be included. Simply append the `--fontSvg` flag.
+
+```
+font-build --fontSvg
+```
+
+## Request Features
+
+Please let us know if you need any features beyond the current CLI options by opening an issue.
 
 ## The `webfont` Package is Amazing!
 

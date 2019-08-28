@@ -32,6 +32,11 @@ const argv = yargs
     default: './dist',
     type: 'string'
   })
+  .option('fontSvg', {
+    description: 'Include SVG font in output',
+    default: false,
+    type: 'boolean'
+  })
   .help()
   .alias('help', 'h')
   .version()
@@ -241,11 +246,17 @@ function generateCSS() {
   console.log(`- Generated ${fileName}.css / *.min.css / *.map`);
 }
 
+const formats = ['ttf', 'eot', 'woff', 'woff2'];
+if (argv.fontSvg) {
+  formats.push('svg');
+}
+
 webfont({
   files: 'svg/*.svg',
   fontName: fontBuildJson.fontName,
-  formats: ['ttf', 'eot', 'woff', 'woff2'],
-  fontHeight: 512
+  formats: formats,
+  fontHeight: 512,
+  descent: 64
 })
 .then(result => {
   const { fileName } = fontBuildJson;
@@ -254,7 +265,10 @@ webfont({
   fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.eot`), result.eot);
   fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.woff`), result.woff);
   fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.woff2`), result.woff2);
-  console.log('- Generated ttf, eot, woff, and woff2');
+  if (argv.fontSvg) {
+    fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.svg`), result.svg);
+  }
+  console.log(`- Generated ttf, eot, woff, and woff2${argv.fontSvg && ' + svg'}`);
   generateIndex();
   generateSCSS();
   generateCSS();
