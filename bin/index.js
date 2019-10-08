@@ -227,7 +227,8 @@ function generateCSS() {
       console.error(err);
     } else {
       fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.css`), result.css);
-      fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.css.map`), result.map);
+      const mapData = Buffer.from(result.map.toString('utf8').replace(/dist\//g, '../'));
+      fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.css.map`), mapData);
     }
   });
   sass.render({
@@ -240,7 +241,8 @@ function generateCSS() {
       console.error(err);
     } else {
       fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.min.css`), result.css);
-      fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.min.css.map`), result.map);
+      const mapData = Buffer.from(result.map.toString('utf8').replace(/dist\//g, '../'));
+      fs.writeFileSync(path.join(distFolder, 'css', `${fileName}.min.css.map`), mapData);
     }
   });
   console.log(`- Generated ${fileName}.css / *.min.css / *.map`);
