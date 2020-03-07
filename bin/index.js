@@ -17,6 +17,11 @@ const argv = yargs
     default: './meta.json',
     type: 'string'
   })
+  .option('mode', {
+    description: 'Preview --mode defaults to webfont; svg will inline SVG instead',
+    default: 'webfont',
+    type: 'string'
+  })
   .option('font', {
     description: 'Instead of --dir give path to ./font-build.json',
     default: './font-build.json',
@@ -75,6 +80,8 @@ if (!fs.existsSync(svgFolder)) {
   process.exit(1);
 }
 
+const mode = argv.mode;
+
 const fontBuildString = fs.readFileSync(fontBuildFile);
 const fontBuildJson = {
   prefix: 'default',
@@ -125,7 +132,7 @@ function generateFolders() {
   console.log('- Folders created.');
 }
 
-function generateIndex() {
+function generateHtmlWebfont() {
   const {
     prefix,
     name,
@@ -160,6 +167,51 @@ function generateIndex() {
     .replace(/npmJS/g, npmJS)
     .replace(/npmSVG/g, npmSVG)
     .replace(/domain\.com/g, website)
+    .replace(/icons = \[\]/, `icons = [${icons.join(',')}]`);
+  fs.writeFileSync(htmlDist, htmlString);
+  console.log('- Generated index.html');
+}
+
+function generateHtmlSvg() {
+  const {
+    prefix,
+    name,
+    icon,
+    fileName,
+    fontName,
+    fontFamily,
+    fontWeight,
+    version,
+    npmFont,
+    npmJS,
+    npmSVG,
+    website,
+    date
+  } = fontBuildJson;
+  const htmlSrc = path.resolve(__dirname, '..', 'src', 'index-svg.html');
+  const htmlDist = path.resolve(distFolder, 'index.html');
+  const icons = [];
+  metaJson.forEach(icon => {
+    const deprecated = icon.deprecated ? ',deprecated:true' : '';
+    const svgFile = path.resolve(currentPath, 'svg', `u${icon.codepoint}-${icon.name}.svg`);
+    const svgData = fs.readFileSync(svgFile, 'utf8');
+    const data = svgData.match(/ d="([^"]+)"/)[1];
+    icons.push(`{name:"${icon.name}",data:"${data}",hex:"${icon.codepoint}",version:"${icon.version}"${deprecated}}`);
+  });
+  const htmlString = fs.readFileSync(htmlSrc, 'utf8')
+    .replace(/prefix/g, prefix)
+    .replace(/packageName/g, name)
+    .replace(/packageIcon/g, icon)
+    .replace(/fileName/g, fileName)
+    .replace(/fontName/g, fontName)
+    .replace(/fontFamily/g, fontFamily)
+    .replace(/fontWeight/g, fontWeight)
+    .replace(/-.-.-/g, `${version.major}.${version.minor}.${version.patch}`)
+    .replace(/npmFont/g, npmFont)
+    .replace(/npmJS/g, npmJS)
+    .replace(/npmSVG/g, npmSVG)
+    .replace(/domain\.com/g, website)
+    .replace(/var date = null;/g, `var date = ${JSON.stringify(date)};`)
     .replace(/icons = \[\]/, `icons = [${icons.join(',')}]`);
   fs.writeFileSync(htmlDist, htmlString);
   console.log('- Generated index.html');
@@ -253,13 +305,26 @@ if (argv.fontSvg) {
   formats.push('svg');
 }
 
-webfont({
-  files: 'svg/*.svg',
-  fontName: fontBuildJson.fontName,
-  formats: formats,
-  fontHeight: 512,
-  descent: 64
-})
+function getConfig() {
+  const {
+    fontName,
+    version
+  } = fontBuildJson;
+  const config = {
+    files: 'svg/*.svg',
+    fontName,
+    formats: formats,
+    fontHeight: 512,
+    descent: 64
+  };
+  if (fontBuildJson.version) {
+    const { major, minor, patch } = version;
+    config.version = `${major}.${minor}.${patch}`;
+  }
+  return config;
+}
+
+webfont(getConfig())
 .then(result => {
   const { fileName } = fontBuildJson;
   generateFolders();
@@ -271,7 +336,13 @@ webfont({
     fs.writeFileSync(path.join(distFolder, 'fonts', `${fileName}-webfont.svg`), result.svg);
   }
   console.log(`- Generated ttf, eot, woff, and woff2${argv.fontSvg && ' + svg'}`);
-  generateIndex();
+  if (mode === 'webfont') {
+    generateHtmlWebfont();
+  } else if (mode === 'svg') {
+    generateHtmlSvg();
+  } else {
+    console.error(`Invalid mode, only "webfont" and "svg" supported.`);
+  }
   generateSCSS();
   generateCSS();
   return result;

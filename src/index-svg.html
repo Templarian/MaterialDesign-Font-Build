@@ -1,0 +1,532 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="google" content="notranslate">
+    <title>packageName</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #222;
+        }
+
+        h1,
+        h2,
+        h3,
+        p,
+        div,
+        blockquote,
+        footer {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+
+        h1 {
+            padding: 20px 20px 16px 20px;
+            font-size: 26px;
+            line-height: 26px;
+            font-weight: normal;
+            color: #FFF;
+            background-color: #2196F3;
+        }
+
+        h1 svg {
+            vertical-align: middle;
+            width: 26px;
+            height: 26px;
+            margin: 0 6px 4px 0;
+        }
+
+        h1 svg path {
+            fill: #FFF;
+        }
+
+        h1 .date {
+            font-size: 14px;
+            background: #FFF;
+            padding: 4px 10px;
+            float: right;
+            border-radius: 2px;
+            margin: -3px 0 0 0;
+            color: #666;
+            font-weight: bold;
+        }
+
+        h1 code {
+            font-size: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4px 12px;
+            border-radius: 3px;
+            float: right;
+            margin: -3px 10px 0 0;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        h1 code:hover {
+            border: 1px solid #FFF;
+        }
+
+        h1 code svg {
+            width: 24px;
+            height: 24px;
+            margin: -1px -4px 0 -2px
+        }
+
+        h2 {
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        h2 small {
+            color: #555;
+            font-size: 0.8rem;
+        }
+
+        h2 small::before {
+            content: '(';
+        }
+
+        h2 small::after {
+            content: ')';
+        }
+
+        h2 span {
+            position: relative;
+        }
+
+        h2.newicons span::before {
+            position: absolute;
+            content: ' ';
+            width: 100%;
+            height: 0.2rem;
+            bottom: -0.25rem;
+            background: #3C90BE;
+            border-radius: 0.1rem;
+        }
+
+        h2.deprecatedicons span::before {
+            position: absolute;
+            content: ' ';
+            width: 100%;
+            height: 0.2rem;
+            bottom: -0.25rem;
+            background: #BE3C3C;
+            border-radius: 0.1rem;
+        }
+
+        h3 {
+            font-size: 14px;
+            padding: 10px 20px 0 20px;
+            font-weight: bold;
+        }
+
+        p {
+            padding: 10px 20px;
+        }
+
+        p code {
+            display: inline-block;
+            vertical-align: middle;
+            background: #F1F1F1;
+            padding: 3px 5px;
+            border-radius: 3px;
+            border: 1px solid #DDD;
+        }
+
+        p i.prefix {
+            vertical-align: middle;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        p i.prefix.dark-demo {
+            background: #333;
+        }
+
+        p.note {
+            color: #999;
+            font-size: 14px;
+            padding: 0 20px 5px 20px;
+        }
+
+        p.deprecated {
+            margin: -0.5rem 0 0.25rem 0;
+        }
+
+        p.extras {
+            margin-top: -0.5rem;
+        }
+
+        div.icons {
+            padding: 0 20px 10px 20px;
+            -webkit-column-count: 5;
+            -moz-column-count: 5;
+            column-count: 5;
+            -webkit-column-gap: 20px;
+            -moz-column-gap: 20px;
+            column-gap: 20px;
+        }
+
+        div.icons div {
+            line-height: 2em;
+            white-space: nowrap;
+        }
+
+        div.icons div span {
+            cursor: pointer;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            display: inline-block;
+            max-width: calc(100% - 90px);
+            overflow: hidden;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        div.icons div span:hover,
+        div.icons div svg:hover {
+            fill: #3c90be;
+        }
+
+        div.icons div code.hex:hover {
+            border-color: #3c90be;
+            z-index: 1;
+            position: relative;
+        }
+
+        div.icons div code.hex {
+            border: 1px solid #DDD;
+            width: 46px;
+            margin-right: 4px;
+            border-radius: 0 4px 4px 0;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 24px;
+            cursor: pointer;
+        }
+
+        div.icons div code.unicode:hover {
+            border-color: #3c90be;
+            background: #3c90be;
+            color: #FFF;
+            z-index: 1;
+            position: relative;
+        }
+
+        div.icons div code.unicode {
+            border: 1px solid #DDD;
+            background: #DDD;
+            font-weight: bold;
+            margin-right: -1px;
+            padding-left: 3px;
+            padding-right: 3px;
+            border-radius: 4px 0 0 4px;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 24px;
+            cursor: pointer;
+        }
+        div.icons div code.unicode::before {
+            content: 'U';
+        }
+
+        div.icons div svg {
+            display: inline-block;
+            width: 32px;
+            height: 24px;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            line-height: 24px;
+        }
+
+        div.icons .prefix::before {
+            font-size: 24px;
+        }
+
+        div.icons div.new::before {
+            content: ' ';
+            width: 0.2rem;
+            height: 1.75rem;
+            position: absolute;
+            margin-top: 0.25rem;
+            margin-left: -0.25rem;
+            background: #3C90BE;
+            border-radius: 0.1rem;
+        }
+
+        div.icons div.deprecated::before {
+            content: ' ';
+            width: 0.2rem;
+            height: 1.75rem;
+            position: absolute;
+            margin-top: 0.25rem;
+            margin-left: -0.25rem;
+            background: #BE3C3C;
+            border-radius: 0.1rem;
+        }
+
+        pre {
+            margin: 0 20px;
+            font-family: Consolas, monospace;
+            padding: 10px;
+            border: 1px solid #DDD;
+            background: #F1F1F1;
+        }
+
+        ul.usage-list {
+            list-style: square;
+            padding-left: 3rem;
+            line-height: 1.25rem;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+
+        blockquote {
+            position: relative;
+            margin: 1rem 1rem 0 1rem;
+            padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+        }
+
+        blockquote.note::before {
+            content: ' ';
+            width: 0.25rem;
+            height: 100%;
+            background: #DDD;
+            position: absolute;
+            border-radius: 0.25rem;
+            top: 0;
+            left: 0;
+        }
+
+        blockquote.deprecated::before {
+            content: ' ';
+            width: 0.25rem;
+            height: 100%;
+            background: #BE3C3C;
+            position: absolute;
+            border-radius: 0.25rem;
+            top: 0;
+            left: 0;
+        }
+
+        div.copied {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            width: 200px;
+            text-align: center;
+            color: #3c763d;
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-left: -100px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            display: flex;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #DDD;
+            background: #F1F1F1;
+        }
+
+        footer > div:first-child {
+            flex: 1;
+        }
+
+        footer > div:last-child {
+            text-align: right;
+        }
+
+        footer a {
+            color: #e91e63;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <svg>
+            <path d="packageIcon"></path>
+        </svg>
+        packageName
+        <span class="date" id="date" style="display:none">January 0, 0000</span>
+    </h1>
+
+    <h2 class="usage">Cheatsheet Usage</h2>
+
+    <ul class="usage-list">
+        <li>Click the icon to copy the SVG to your clipboard</li>
+        <li>Click the <code>U</code> value to copy the character to your clipboard</li>
+        <li>Click the hex value to copy the codepoint to your clipboard</li>
+        <li>Click the icon name to copy to your clipboard</li>
+    </ul>
+
+    <h2 class="newicons" id="newIconsHeader"><span>New</span> Icons <small id="newIconsCount">-</small></h2>
+    <div class="icons" id="newIcons"></div>
+
+    <h2 class="icons">All Icons <small id="iconsCount">-</small></h2>
+    <div class="icons" id="icons"></div>
+
+    <h2 class="deprecatedicons"><span>Deprecated</span> Icons <small id="deprecatedIconsCount">-</small></h2>
+    <p class="deprecated" id="deprecated">
+        Deprecated icons will be removed in a future major release.
+    </p>
+    <div class="icons" id="deprecatedIcons"></div>
+
+    <footer>
+        <div>
+            Generated with <a href="https://npmjs.com/package/@mdi/font-build">@mdi/font-build</a>
+            by <a href="http://domain.com/">domain.com</a>.
+        </div>
+        <div>
+            <a href="https://www.npmjs.com/org/mdi" target="_blank">NPM @mdi Organization</a>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        function isNew(icon) {
+            return icon.version === '-.-.-';
+        }
+        function isDeprecated(icon) {
+            return typeof icon.deprecated == 'undefined'
+                ? false
+                : icon.deprecated;
+        }
+        function copyText(text) {
+            var copyFrom = document.createElement('textarea');
+            copyFrom.setAttribute("style", "position:fixed;opacity:0;top:100px;left:100px;");
+            copyFrom.value = text;
+            document.body.appendChild(copyFrom);
+            copyFrom.select();
+            document.execCommand('copy');
+            var copied = document.createElement('div');
+            copied.setAttribute('class', 'copied');
+            copied.appendChild(document.createTextNode('Copied to Clipboard'));
+            document.body.appendChild(copied);
+            setTimeout(function () {
+                document.body.removeChild(copyFrom);
+                document.body.removeChild(copied);
+            }, 1500);
+        };
+        function getIconItem(icon, isNewIcon, isDeprecatedIcon) {
+            var svgNS = 'http://www.w3.org/2000/svg';
+            var div = document.createElement('div'),
+                svg = document.createElementNS(svgNS, 'svg'),
+                path = document.createElementNS(svgNS, 'path');
+            path.setAttribute('d', icon.data);
+            svg.appendChild(path);
+            div.appendChild(svg);
+            var unicode = document.createElement('code');
+            unicode.setAttribute('class', 'unicode');
+            div.appendChild(unicode);
+            var code = document.createElement('code');
+            code.setAttribute('class', 'hex');
+            code.appendChild(document.createTextNode(icon.hex));
+            div.appendChild(code);
+            var span = document.createElement('span');
+            span.appendChild(document.createTextNode(icon.name));
+            div.appendChild(span);
+            span.onclick = function () {
+                alert(icon.name);
+            };
+            svg.onmouseup = function () {
+                copyText(`<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="prefix-${icon.name}" width="24" height="24" viewBox="0 0 24 24"><g><path fill-opacity="0" d="M0,0H24V24H0" /><path d="${icon.data}" /></g></svg>`);
+            };
+            unicode.onmouseup = function () {
+                console.log(icon.hex, parseInt(icon.hex, 16))
+                copyText(String.fromCodePoint(parseInt(icon.hex, 16)));
+            };
+            code.onmouseup = function () {
+                copyText(icon.hex);
+            };
+            span.onmouseup = function () {
+                copyText(icon.name);
+            };
+            if (isNewIcon) {
+                div.className = 'new';
+            }
+            if (isDeprecatedIcon) {
+                div.className = 'deprecated';
+            }
+            return div;
+        }
+
+        function formatAMPM(date) {
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            return strTime;
+        }
+
+        function getDate() {
+            var date = null;
+            if (date) {
+                const local = new Date(Date.UTC(date.year, date.month, date.day, date.hour, date.minute, 0))
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                return `${months[local.getMonth()]} ${local.getDate()}, ${local.getFullYear()} ${formatAMPM(local)}`;
+            }
+            return '-';
+        }
+        (function () {
+            var iconsCount = 0;
+            var newIconsCount = 0;
+            var deprecatedIconsCount = 0;
+            var icons = [];
+            icons.forEach(function (icon) {
+                var item = getIconItem(icon, isNew(icon), isDeprecated(icon));
+                document.getElementById('icons').appendChild(item);
+                if (isNew(icon)) {
+                    var newItem = getIconItem(icon, false, false);
+                    document.getElementById('newIcons').appendChild(newItem);
+                    newIconsCount++;
+                }
+                if (isDeprecated(icon)) {
+                    var deprecatedItem = getIconItem(icon, false, false);
+                    document.getElementById('deprecatedIcons').appendChild(deprecatedItem);
+                    deprecatedIconsCount++;
+                }
+                iconsCount++;
+            });
+            var whereDeprecated = function (icon) {
+                return icon.deprecated === true;
+            };
+            if (!(icons.find(whereDeprecated))) {
+                document.getElementById('deprecated').style.display = 'none';
+            }
+            document.getElementById('iconsCount').innerText = iconsCount;
+            document.getElementById('newIconsCount').innerText = newIconsCount;
+            if (newIconsCount === 0) {
+                document.getElementById('newIconsHeader').style.display = 'none';
+                document.getElementById('newIcons').style.display = 'none';
+            }
+            document.getElementById('deprecatedIconsCount').innerText = deprecatedIconsCount;
+            document.getElementById('date').innerText = getDate();
+            document.getElementById('date').style.display = 'inline';
+        })();
+    </script>
+
+</body>
+
+</html>
