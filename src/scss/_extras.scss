@@ -1,4 +1,4 @@
-$prefix-sizes: 18 24 36 48;
+$prefix-sizes: 18 24 36 48 !default;
 @each $prefix-size in $prefix-sizes {
     .#{$prefix-css-prefix}-#{$prefix-size}px {
         &.#{$prefix-css-prefix}-set,
@@ -25,7 +25,7 @@ $prefix-sizes: 18 24 36 48;
     }
 }
 
-$prefix-degrees: 45 90 135 180 225 270 315;
+$prefix-degrees: 45 90 135 180 225 270 315 !default;
 @each $prefix-degree in $prefix-degrees {
     .#{$prefix-css-prefix}-rotate-#{$prefix-degree}{
         &:before {
