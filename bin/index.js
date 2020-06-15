@@ -348,5 +348,6 @@ webfont(getConfig())
   return result;
 })
 .catch(error => {
+  console.error(error);
   throw error;
 });
