@@ -311,7 +311,7 @@ function getConfig() {
     version
   } = fontBuildJson;
   const config = {
-    files: 'svg/*.svg',
+    files: `${svgFolder}/*.svg`,
     fontName,
     formats: formats,
     fontHeight: 512,
