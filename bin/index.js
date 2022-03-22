@@ -47,22 +47,21 @@ const argv = yargs
   .version()
   .argv;
 
-const currentPath = process.cwd();
-let distFolder = path.resolve(currentPath, argv.dist);
-let metaFile = path.resolve(currentPath, argv.dir, 'meta.json');
-let fontBuildFile = path.resolve(currentPath, argv.dir, 'font-build.json');
-let svgFolder = path.resolve(currentPath, argv.dir, 'svg');
+let distFolder = path.resolve(argv.dist);
+let metaFile = path.resolve(argv.dir, 'meta.json');
+let fontBuildFile = path.resolve(argv.dir, 'font-build.json');
+let svgFolder = path.resolve(argv.dir, 'svg');
 if (argv.meta !== './meta.json') {
   // Use --meta ./otherfile.json
-  metaFile = path.resolve(currentPath, argv.meta);
+  metaFile = path.resolve(argv.meta);
 }
 if (argv.font !== './font-build.json') {
   // Use --font ./otherfile.json
-  fontBuildFile = path.resolve(currentPath, argv.font);
+  fontBuildFile = path.resolve(argv.font);
 }
 if (argv.svg !== './svg') {
   // Use --svg ./other/directory/svg
-  svgFolder = path.resolve(currentPath, argv.svg);
+  svgFolder = path.resolve(argv.svg);
 }
 
 if (!fs.existsSync(fontBuildFile)) {
@@ -193,7 +192,7 @@ function generateHtmlSvg() {
   const icons = [];
   metaJson.forEach(icon => {
     const deprecated = icon.deprecated ? ',deprecated:true' : '';
-    const svgFile = path.resolve(currentPath, 'svg', `u${icon.codepoint}-${icon.name}.svg`);
+    const svgFile = path.resolve(svgFolder, `u${icon.codepoint}-${icon.name}.svg`);
     const svgData = fs.readFileSync(svgFile, 'utf8');
     const data = svgData.match(/ d="([^"]+)"/)[1];
     icons.push(`{name:"${icon.name}",data:"${data}",hex:"${icon.codepoint}",version:"${icon.version}"${deprecated}}`);
@@ -311,7 +310,11 @@ function getConfig() {
     version
   } = fontBuildJson;
   const config = {
-    files: `${svgFolder}/*.svg`,
+    files: argv.svg !== './svg'
+      ? `${argv.svg}/*.svg`
+      : argv.dir.match(/\/$/)
+        ? `${argv.dir}svg/*.svg`
+        : `${argv.dir}/svg/*.svg`,
     fontName,
     formats: formats,
     fontHeight: 512,
