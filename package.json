@@ -1,6 +1,6 @@
 {
   "name": "@mdi/font-build",
-  "version": "1.8.9",
+  "version": "1.8.10",
   "description": "Material Design Icons webfont builder.",
   "main": "index.js",
   "scripts": {
