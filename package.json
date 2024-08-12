@@ -16,8 +16,8 @@
   "author": "Austin Andrews (@Templarian)",
   "license": "MIT",
   "dependencies": {
-    "node-sass": "^4.12.0",
-    "webfont": "^9.0.0",
-    "yargs": "^13.3.0"
+    "webfont": "^11.2.26 ",
+    "yargs": "^17.7.2",
+    "sass": "^1.77.8"
   }
 }
